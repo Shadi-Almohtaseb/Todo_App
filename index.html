@@ -28,11 +28,164 @@
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"
       ></script>
+      <script src="https://cdn.tailwindcss.com"></script>
       <link rel="stylesheet" href="style.css" />
       <title>Todo</title>
     </head>
   </head>
   <body>
-    <h1>Hi There</h1>
+    <header class="flex items-center justify-center mt-5">
+      <form class="form">
+        <button>
+          <svg
+            width="17"
+            height="16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-labelledby="search"
+          >
+            <path
+              d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
+              stroke="currentColor"
+              stroke-width="1.333"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+          </svg>
+        </button>
+        <input class="input" placeholder="Search..." required="" type="text" />
+        <button class="reset" type="reset">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </button>
+      </form>
+    </header>
+    <main class="bg-white mt-5 mx-5 rounded-lg h-[80vh] shadow-lg">
+      <div
+        class="flex items-start justify-between lg:flex-row flex-col gap-4 pt-4 px-10"
+      >
+        <article class="w-full">
+          <div
+            class="flex justify-between items-center py-1 px-3 rounded-md bg-red-100"
+          >
+            <span class="text-[1.8rem]"><i class="bx bx-shield-x"></i></span>
+            <span><p class="text-[1.25rem] font-semibold">Not Started</p></span>
+            <span
+              class="text-lg py-[2px] px-[11px] bg-red-200 rounded-full font-semibold"
+              >5</span
+            >
+          </div>
+          <div>
+            <div
+              class="flex justify-start gap-4 mt-2 items-center py-2 px-3 rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
+            >
+              <span class="text-[1.7rem]"><i class="bx bx-plus"></i></span>
+              <span><p class="text-[1.1rem]">Add New</p></span>
+            </div>
+          </div>
+          <div>
+            <div
+              class="flex justify-start gap-4 mt-2 items-center py-[11px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
+            >
+              <span><p class="text-[1.3rem]">Task 1</p></span>
+            </div>
+          </div>
+          <div>
+            <div
+              class="flex justify-start gap-4 mt-4 items-center py-[11px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
+            >
+              <span><p class="text-[1.3rem]">Task 2</p></span>
+            </div>
+          </div>
+          <div>
+            <div
+              class="flex justify-start gap-4 mt-4 items-center py-[11px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
+            >
+              <span><p class="text-[1.3rem]">Task 3</p></span>
+            </div>
+          </div>
+        </article>
+        <article class="w-full">
+          <div
+            class="flex justify-between items-center py-1 px-3 rounded-md bg-yellow-100"
+          >
+            <span class="text-[1.8rem]"><i class="bx bx-loader"></i></span>
+            <span><p class="text-[1.25rem] font-semibold">In Progress</p></span>
+            <span
+              class="text-lg py-[2px] px-[11px] bg-yellow-200 rounded-full font-semibold"
+              >5</span
+            >
+          </div>
+          <div>
+            <div
+              class="flex justify-start gap-4 mt-2 items-center py-2 px-3 rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
+            >
+              <span class="text-[1.7rem]"><i class="bx bx-plus"></i></span>
+              <span><p class="text-[1.1rem]">Add New</p></span>
+            </div>
+          </div>
+          <div>
+            <div
+              class="flex justify-start gap-4 mt-2 items-center py-[11px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
+            >
+              <span><p class="text-[1.3rem]">Task 3</p></span>
+            </div>
+          </div>
+          <div>
+            <div
+              class="flex justify-start gap-4 mt-4 items-center py-[11px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
+            >
+              <span><p class="text-[1.3rem]">Task 4</p></span>
+            </div>
+          </div>
+        </article>
+        <article class="w-full">
+          <div
+            class="flex justify-between items-center py-1 px-3 rounded-md bg-green-100"
+          >
+            <span class="text-[1.8rem]"><i class="bx bx-check"></i></span>
+            <span><p class="text-[1.25rem] font-semibold">Completed</p></span>
+            <span
+              class="text-lg py-[2px] px-[11px] bg-green-200 rounded-full font-semibold"
+              >5</span
+            >
+          </div>
+          <div>
+            <div
+              class="flex justify-start gap-4 mt-4 items-center py-[11px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
+            >
+              <span><p class="text-[1.3rem]">Task 5</p></span>
+            </div>
+          </div>
+          <div>
+            <div
+              class="flex justify-start gap-4 mt-4 items-center py-[11px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
+            >
+              <span><p class="text-[1.3rem]">Task 6</p></span>
+            </div>
+          </div>
+          <div>
+            <div
+              class="flex justify-start gap-4 mt-4 items-center py-[11px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
+            >
+              <span><p class="text-[1.3rem]">Task 7</p></span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </main>
   </body>
 </html>
