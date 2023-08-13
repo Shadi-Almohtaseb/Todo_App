@@ -107,8 +107,9 @@
                 class="status form-select form-select-lg cursor-pointer h-12 text-xl"
                 aria-label="medium select example"
               >
-                <option selected>Not Started</option>
-                <option value="1">In Progress</option>
+                <option disabled selected value="">select status</option>
+                <option>Not Started</option>
+                <option>In Progress</option>
               </select>
             </div>
             <div class="form-floating mt-10">
@@ -124,7 +125,7 @@
           </div>
           <div class="modal-footer flex items-center justify-between">
             <button
-              class="btn btn-primary text-lg py-2 px-5"
+              class="add btn btn-primary text-lg py-2 px-5"
               data-bs-dismiss="modal"
             >
               Create
@@ -166,27 +167,7 @@
               <span><p class="text-[1.1rem]">Add New</p></span>
             </div>
           </div>
-          <div>
-            <div
-              class="flex justify-start gap-4 mt-2 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-grab"
-            >
-              <span><p class="text-[1.3rem]">Task 1</p></span>
-            </div>
-          </div>
-          <div>
-            <div
-              class="flex justify-start gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-grab"
-            >
-              <span><p class="text-[1.3rem]">Task 2</p></span>
-            </div>
-          </div>
-          <div>
-            <div
-              class="flex justify-start gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-grab"
-            >
-              <span><p class="text-[1.3rem]">Task 3</p></span>
-            </div>
-          </div>
+          <div id="tasks-container-not-started"></div>
         </article>
         <article class="w-full lg:mt-0 mt-[4rem]">
           <div
@@ -209,20 +190,7 @@
               <span><p class="text-[1.1rem]">Add New</p></span>
             </div>
           </div>
-          <div>
-            <div
-              class="flex justify-start gap-4 mt-2 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-grab"
-            >
-              <span><p class="text-[1.3rem]">Task 3</p></span>
-            </div>
-          </div>
-          <div>
-            <div
-              class="flex justify-start gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-grab"
-            >
-              <span><p class="text-[1.3rem]">Task 4</p></span>
-            </div>
-          </div>
+          <div id="tasks-container-in-progress"></div>
         </article>
         <article class="w-full lg:mt-0 mt-[4rem]">
           <div
