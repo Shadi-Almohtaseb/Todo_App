@@ -34,7 +34,7 @@
     </head>
   </head>
   <body>
-    <header class="flex items-center justify-center mt-5">
+    <header class="flex items-center justify-center pt-5">
       <form class="form">
         <button>
           <svg
@@ -73,9 +73,58 @@
         </button>
       </form>
     </header>
-    <main class="bg-white mt-5 mx-5 rounded-lg h-[80vh] shadow-lg">
+    <!-- modal  -->
+    <div class="hidden w-[100%] h-[100%] absolute top-0 bg-[#0000008a]">
       <div
-        class="flex items-start justify-between lg:flex-row flex-col gap-4 pt-4 px-10"
+        class="absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 max-w-[40vw] max-h-[50vh] h-full w-full bg-white rounded-lg p-3"
+      >
+        <div class="flex items-center justify-between">
+          <h2 class="mt-2 ml-8 text-xl">Add a new task</h2>
+          <span
+            class="bg-slate-100 hover:bg-slate-200 cursor-pointer rounded-full"
+          >
+            <i class="bx bx-x text-3xl px-1 text-gray-700"></i>
+          </span>
+        </div>
+        <div>
+          <div class="flex items-center justify-between mx-10 mt-8 gap-10">
+            <input
+              type="text"
+              class="form-control bg-slate-100 px-3 w-full"
+              placeholder="Title"
+              aria-label="Text input with dropdown button"
+            />
+            <select
+              class="form-select form-select-lg cursor-pointer text-base"
+              aria-label="medium select example"
+            >
+              <option selected>Not Started</option>
+              <option value="1">In Progress</option>
+            </select>
+          </div>
+          <div class="form-floating mt-10 mx-10">
+            <textarea
+              class="form-control bg-slate-100"
+              style="max-height: 200px; height: 100%"
+              rows="10"
+              placeholder="Leave a Message here"
+              id="floatingTextarea"
+            ></textarea>
+            <label for="floatingTextarea">Message</label>
+          </div>
+        </div>
+        <button
+          class="px-5 py-2 rounded-lg bg-blue-500 text-white ml-10 mt-10 text-lg hover:bg-blue-600"
+        >
+          Create
+        </button>
+      </div>
+    </div>
+    <main
+      class="bg-white mt-5 mx-3 md:mx-7 mb-4 pb-5 rounded-lg min-h-[50rem] h-auto shadow-lg overflow-y-auto"
+    >
+      <div
+        class="flex items-start justify-between lg:flex-row flex-col gap-4 pt-4 md:px-10 px-4"
       >
         <article class="w-full">
           <div
@@ -118,7 +167,7 @@
             </div>
           </div>
         </article>
-        <article class="w-full">
+        <article class="w-full lg:mt-0 mt-[4rem]">
           <div
             class="flex justify-between items-center py-1 px-3 rounded-md bg-yellow-100"
           >
@@ -152,7 +201,7 @@
             </div>
           </div>
         </article>
-        <article class="w-full">
+        <article class="w-full lg:mt-0 mt-[4rem]">
           <div
             class="flex justify-between items-center py-1 px-3 rounded-md bg-green-100"
           >
