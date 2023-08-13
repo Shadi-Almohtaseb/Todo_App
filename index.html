@@ -74,50 +74,69 @@
       </form>
     </header>
     <!-- modal  -->
-    <div class="hidden w-[100%] h-[100%] absolute top-0 bg-[#0000008a]">
+    <div
+      class="modal fade"
+      id="staticBackdrop"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
       <div
-        class="absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 max-w-[40vw] max-h-[50vh] h-full w-full bg-white rounded-lg p-3"
+        class="modal-dialog modal-dialog-centered modal-dialog-scrollable max-w-[40vw] max-h-[50vh]"
       >
-        <div class="flex items-center justify-between">
-          <h2 class="mt-2 ml-8 text-xl">Add a new task</h2>
-          <span
-            class="bg-slate-100 hover:bg-slate-200 cursor-pointer rounded-full"
-          >
-            <i class="bx bx-x text-3xl px-1 text-gray-700"></i>
-          </span>
-        </div>
-        <div>
-          <div class="flex items-center justify-between mx-10 mt-8 gap-10">
-            <input
-              type="text"
-              class="form-control bg-slate-100 px-3 w-full"
-              placeholder="Title"
-              aria-label="Text input with dropdown button"
-            />
-            <select
-              class="form-select form-select-lg cursor-pointer text-base"
-              aria-label="medium select example"
+        <div class="modal-content px-6">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">
+              Modal title
+            </h1>
+            <button
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="flex items-center justify-between mt-8 gap-10">
+              <input
+                type="text"
+                class="title form-control bg-slate-100 px-3 w-full h-12 text-xl"
+                placeholder="Title"
+                aria-label="Text input with dropdown button"
+              />
+              <select
+                class="status form-select form-select-lg cursor-pointer h-12 text-xl"
+                aria-label="medium select example"
+              >
+                <option selected>Not Started</option>
+                <option value="1">In Progress</option>
+              </select>
+            </div>
+            <div class="form-floating mt-10">
+              <textarea
+                class="message form-control bg-slate-100 text-xl"
+                style="max-height: 200px; height: 100%"
+                rows="10"
+                placeholder="Leave a Message here"
+                id="floatingTextarea"
+              ></textarea>
+              <label for="floatingTextarea">Message</label>
+            </div>
+          </div>
+          <div class="modal-footer flex items-center justify-between">
+            <button
+              class="btn btn-primary text-lg py-2 px-5"
+              data-bs-dismiss="modal"
             >
-              <option selected>Not Started</option>
-              <option value="1">In Progress</option>
-            </select>
-          </div>
-          <div class="form-floating mt-10 mx-10">
-            <textarea
-              class="form-control bg-slate-100"
-              style="max-height: 200px; height: 100%"
-              rows="10"
-              placeholder="Leave a Message here"
-              id="floatingTextarea"
-            ></textarea>
-            <label for="floatingTextarea">Message</label>
+              Create
+            </button>
+            <button
+              class="btn btn-secondary text-lg py-2 px-5"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
           </div>
         </div>
-        <button
-          class="px-5 py-2 rounded-lg bg-blue-500 text-white ml-10 mt-10 text-lg hover:bg-blue-600"
-        >
-          Create
-        </button>
       </div>
     </div>
     <main
@@ -139,6 +158,8 @@
           </div>
           <div>
             <div
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
               class="flex justify-start gap-4 mt-2 items-center py-2 px-3 rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
             >
               <span class="text-[1.7rem]"><i class="bx bx-plus"></i></span>
@@ -147,21 +168,21 @@
           </div>
           <div>
             <div
-              class="flex justify-start gap-4 mt-2 items-center py-[11px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
+              class="flex justify-start gap-4 mt-2 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-grab"
             >
               <span><p class="text-[1.3rem]">Task 1</p></span>
             </div>
           </div>
           <div>
             <div
-              class="flex justify-start gap-4 mt-4 items-center py-[11px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
+              class="flex justify-start gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-grab"
             >
               <span><p class="text-[1.3rem]">Task 2</p></span>
             </div>
           </div>
           <div>
             <div
-              class="flex justify-start gap-4 mt-4 items-center py-[11px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
+              class="flex justify-start gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-grab"
             >
               <span><p class="text-[1.3rem]">Task 3</p></span>
             </div>
@@ -180,6 +201,8 @@
           </div>
           <div>
             <div
+              data-bs-toggle="modal"
+              data-bs-target="#staticBackdrop"
               class="flex justify-start gap-4 mt-2 items-center py-2 px-3 rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
             >
               <span class="text-[1.7rem]"><i class="bx bx-plus"></i></span>
@@ -188,14 +211,14 @@
           </div>
           <div>
             <div
-              class="flex justify-start gap-4 mt-2 items-center py-[11px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
+              class="flex justify-start gap-4 mt-2 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-grab"
             >
               <span><p class="text-[1.3rem]">Task 3</p></span>
             </div>
           </div>
           <div>
             <div
-              class="flex justify-start gap-4 mt-4 items-center py-[11px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
+              class="flex justify-start gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-grab"
             >
               <span><p class="text-[1.3rem]">Task 4</p></span>
             </div>
@@ -214,21 +237,21 @@
           </div>
           <div>
             <div
-              class="flex justify-start gap-4 mt-4 items-center py-[11px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
+              class="flex justify-start gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-grab"
             >
               <span><p class="text-[1.3rem]">Task 5</p></span>
             </div>
           </div>
           <div>
             <div
-              class="flex justify-start gap-4 mt-4 items-center py-[11px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
+              class="flex justify-start gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-grab"
             >
               <span><p class="text-[1.3rem]">Task 6</p></span>
             </div>
           </div>
           <div>
             <div
-              class="flex justify-start gap-4 mt-4 items-center py-[11px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-pointer"
+              class="flex justify-start gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-grab"
             >
               <span><p class="text-[1.3rem]">Task 7</p></span>
             </div>
@@ -236,5 +259,6 @@
         </article>
       </div>
     </main>
+    <script src="script.js"></script>
   </body>
 </html>
