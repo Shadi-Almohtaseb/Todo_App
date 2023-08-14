@@ -73,7 +73,7 @@
         </button>
       </form>
     </header>
-    <!-- modal  -->
+    <!-- Add task modal  -->
     <div
       class="modal fade"
       id="staticBackdrop"
@@ -87,7 +87,7 @@
         <div class="modal-content px-6">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="staticBackdropLabel">
-              Modal title
+              Add New Task
             </h1>
             <button
               class="btn-close"
@@ -135,6 +135,72 @@
               data-bs-dismiss="modal"
             >
               Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Task details modal  -->
+    <div
+      class="modal fade"
+      id="details"
+      tabindex="-1"
+      aria-labelledby="detailsLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-dialog-centered modal-dialog-scrollable max-w-[40vw] max-h-[50vh]"
+      >
+        <div class="modal-content px-6">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="detailsLabel">Task Details</h1>
+            <button
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="flex items-center justify-between mt-8 gap-10">
+              <input
+                type="text"
+                class="title-input form-control bg-slate-100 px-3 w-full h-12 text-xl"
+                placeholder="Title"
+                aria-label="Text input with dropdown button"
+              />
+              <select
+                class="status-input form-select form-select-lg cursor-pointer h-12 text-xl"
+                aria-label="medium select example"
+              >
+                <option disabled selected value="">select status</option>
+                <option>Not Started</option>
+                <option>In Progress</option>
+                <option>Completed</option>
+              </select>
+            </div>
+            <div class="form-floating mt-10">
+              <textarea
+                class="message-input form-control bg-slate-100 text-xl"
+                style="max-height: 200px; height: 100%"
+                rows="10"
+                placeholder="Leave a Message here"
+                id="floatingTextarea"
+              ></textarea>
+              <label for="floatingTextarea">Message</label>
+            </div>
+          </div>
+          <div class="modal-footer flex items-center justify-between">
+            <button
+              class="save btn btn-primary text-lg py-2 px-5"
+              data-bs-dismiss="modal"
+            >
+              Save
+            </button>
+            <button
+              class="bg-red-500 text-white text-lg py-2 px-5 rounded-lg hover:bg-red-600"
+              data-bs-dismiss="modal"
+            >
+              Delete
             </button>
           </div>
         </div>
@@ -203,27 +269,7 @@
               >5</span
             >
           </div>
-          <div>
-            <div
-              class="flex justify-start gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-grab"
-            >
-              <span><p class="text-[1.3rem]">Task 5</p></span>
-            </div>
-          </div>
-          <div>
-            <div
-              class="flex justify-start gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-grab"
-            >
-              <span><p class="text-[1.3rem]">Task 6</p></span>
-            </div>
-          </div>
-          <div>
-            <div
-              class="flex justify-start gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-white shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md hover:bg-gray-100 duration-200 cursor-grab"
-            >
-              <span><p class="text-[1.3rem]">Task 7</p></span>
-            </div>
-          </div>
+          <div id="tasks-container-completed"></div>
         </article>
       </div>
     </main>
