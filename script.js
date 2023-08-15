@@ -27,8 +27,7 @@ const addNewTask = () => {
   } else {
     alert("some information is missing!");
   }
-  // getTasks();
-  window.location.reload();
+  getTasks();
 };
 
 const getTasks = () => {
@@ -103,6 +102,8 @@ const displayTasks = (filteredTasks) => {
   notStartedContainer.innerHTML = notStartedContent;
   inProgressContainer.innerHTML = inProgressContent;
   completedContainer.innerHTML = completedContent;
+
+  x();
 };
 
 btn.addEventListener("click", addNewTask);
@@ -114,6 +115,12 @@ let currentEditedTaskId = null;
 
 const getTask = (id) => {
   const deleteBTN = `
+    <button class="save btn btn-primary text-lg py-2 px-5"
+      data-bs-dismiss="modal"
+    >
+      Save
+    </button>
+
     <button
         class="bg-red-500 text-white text-lg py-2 px-5 rounded-lg hover:bg-red-600"
         data-bs-dismiss="modal"
@@ -124,7 +131,7 @@ const getTask = (id) => {
       Delete
     </button>
   `;
-  document.querySelector(".modal-btn").innerHTML += deleteBTN;
+  document.querySelector(".modal-btn").innerHTML = deleteBTN;
 
   const titleInput = document.querySelector(".title-input");
   const statusSelect = document.querySelector(".status-input");
@@ -155,8 +162,7 @@ const getTask = (id) => {
       if (index !== -1) {
         TasksList[index] = updatedTask;
         localStorage.setItem("tasks", JSON.stringify(TasksList));
-        // getTasks();
-        window.location.reload();
+        getTasks();
 
         currentEditedTaskId = null;
       }
@@ -166,7 +172,7 @@ const getTask = (id) => {
 
 // Drag and drop feature
 
-document.addEventListener("DOMContentLoaded", () => {
+const x = () => {
   const todos = document.querySelectorAll(".todo");
   const columns = document.querySelectorAll(".status");
   let draggableTodo = null;
@@ -233,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
     column.addEventListener("dragleave", dragLeave);
     column.addEventListener("drop", dragDrop);
   });
-});
+};
 
 // Delete Task
 
@@ -248,7 +254,7 @@ const deleteTask = (id) => {
     const index = TasksList.findIndex((item) => item.id === Number(id));
     TasksList.splice(index, 1);
     localStorage.setItem("tasks", JSON.stringify(TasksList));
-    window.location.reload();
+    getTasks();
   });
 };
 
