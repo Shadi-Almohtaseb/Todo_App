@@ -27,7 +27,8 @@ const addNewTask = () => {
   } else {
     alert("some information is missing!");
   }
-  getTasks();
+  // getTasks();
+  window.location.reload();
 };
 
 const getTasks = () => {
@@ -55,12 +56,12 @@ const displayTasks = () => {
 
   TasksList.forEach((task) => {
     const taskHtml = `
-    <div id="${task.id}" class="relative group flex justify-between gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-[#fff] hover:bg-[#2929290e] shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md duration-200 cursor-grab">
+    <div draggable="true" id="${task.id}" class="todo relative group flex justify-between gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-[#f1f1f196] hover:bg-[#2929290e] shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md duration-200 cursor-grab">
     <span><p class="text-[1.3rem]">${task.taskTitle}</p></span>
     <span onclick="getTask(${task.id})" data-bs-toggle="modal" data-bs-target="#details" class="dots-icon hidden group-hover:block absolute right-14 bg-[#54545418] rounded-full py-1 px-2 cursor-pointer hover:bg-slate-200">
       <i class="bx bx-dots-horizontal-rounded text-2xl"></i>
     </span>
-      <span class="hidden group-hover:block absolute right-2 bg-[#54545418] rounded-full py-1 px-2 cursor-pointer hover:bg-slate-200">
+      <span data-bs-toggle="modal" data-bs-target="#ConfirmDelete" class="hidden group-hover:block absolute right-2 bg-[#54545418] rounded-full py-1 px-2 cursor-pointer hover:bg-slate-200">
         <i class="bx bx-x text-2xl"></i>
       </span>
     </div>
@@ -118,10 +119,82 @@ const getTask = (id) => {
       if (index !== -1) {
         TasksList[index] = updatedTask;
         localStorage.setItem("tasks", JSON.stringify(TasksList));
-        getTasks();
+        // getTasks();
+        window.location.reload();
 
         currentEditedTaskId = null;
       }
     }
   });
 };
+
+// Drag and drop feature
+
+document.addEventListener("DOMContentLoaded", () => {
+  const todos = document.querySelectorAll(".todo");
+  const columns = document.querySelectorAll(".status");
+  let draggableTodo = null;
+
+  const dragStart = (e) => {
+    draggableTodo = e.target;
+    console.log("entered");
+  };
+
+  const dragEnd = () => {
+    draggableTodo = null;
+  };
+
+  todos.forEach((todo) => {
+    todo.addEventListener("dragstart", dragStart);
+    todo.addEventListener("dragend", dragEnd);
+  });
+
+  const dragEnter = (e) => {
+    const column = e.currentTarget;
+    column.style.border = "2px dashed #cccd";
+    column.style.background = "#ebebeb87";
+  };
+
+  const dragLeave = (e) => {
+    const column = e.currentTarget;
+    column.style.border = "none";
+    column.style.background = "none";
+  };
+
+  const dragDrop = (e) => {
+    e.preventDefault();
+    console.log("draggableTodo: ", draggableTodo);
+
+    if (draggableTodo instanceof Node) {
+      const newStatus = e.currentTarget.dataset.status;
+
+      const taskId = draggableTodo.getAttribute("id");
+      const task = TasksList.find((task) => task.id === Number(taskId));
+      if (task) {
+        task.taskStatus = newStatus;
+        localStorage.setItem("tasks", JSON.stringify(TasksList));
+      }
+
+      e.currentTarget.appendChild(draggableTodo);
+      e.currentTarget.style.border = "none";
+      const column = e.currentTarget;
+      column.style.background = "none";
+    }
+  };
+
+  const dragOver = (e) => {
+    e.preventDefault();
+    if (e.target.classList.contains("status")) {
+      e.dataTransfer.dropEffect = "move";
+    } else {
+      e.dataTransfer.dropEffect = "none";
+    }
+  };
+
+  columns.forEach((column) => {
+    column.addEventListener("dragover", dragOver);
+    column.addEventListener("dragenter", dragEnter);
+    column.addEventListener("dragleave", dragLeave);
+    column.addEventListener("drop", dragDrop);
+  });
+});
