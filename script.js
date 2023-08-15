@@ -61,7 +61,7 @@ const displayTasks = () => {
     <span onclick="getTask(${task.id})" data-bs-toggle="modal" data-bs-target="#details" class="dots-icon hidden group-hover:block absolute right-14 bg-[#54545418] rounded-full py-1 px-2 cursor-pointer hover:bg-slate-200">
       <i class="bx bx-dots-horizontal-rounded text-2xl"></i>
     </span>
-      <span data-bs-toggle="modal" data-bs-target="#ConfirmDelete" class="hidden group-hover:block absolute right-2 bg-[#54545418] rounded-full py-1 px-2 cursor-pointer hover:bg-slate-200">
+      <span onclick="deleteTask(${task.id})" data-bs-toggle="modal" data-bs-target="#ConfirmDelete" class="hidden group-hover:block absolute right-2 bg-[#54545418] rounded-full py-1 px-2 cursor-pointer hover:bg-slate-200">
         <i class="bx bx-x text-2xl"></i>
       </span>
     </div>
@@ -86,14 +86,26 @@ document.addEventListener("DOMContentLoaded", getTasks);
 
 // Show task details
 
-const titleInput = document.querySelector(".title-input");
-const statusSelect = document.querySelector(".status-input");
-const messageTextarea = document.querySelector(".message-input");
-const saveButton = document.querySelector(".save");
-
 let currentEditedTaskId = null;
 
 const getTask = (id) => {
+  const deleteBTN = `
+    <button
+        class="bg-red-500 text-white text-lg py-2 px-5 rounded-lg hover:bg-red-600"
+        data-bs-dismiss="modal"
+        data-bs-toggle="modal"
+        data-bs-target="#ConfirmDelete"
+        onclick="deleteTask(${id})"
+      >
+      Delete
+    </button>
+  `;
+  document.querySelector(".modal-btn").innerHTML += deleteBTN;
+
+  const titleInput = document.querySelector(".title-input");
+  const statusSelect = document.querySelector(".status-input");
+  const messageTextarea = document.querySelector(".message-input");
+  const saveButton = document.querySelector(".save");
   const task = TasksList.find((task) => task.id === id);
 
   if (task) {
@@ -198,3 +210,20 @@ document.addEventListener("DOMContentLoaded", () => {
     column.addEventListener("drop", dragDrop);
   });
 });
+
+// Delete Task
+
+const deleteTask = (id) => {
+  const deleteBTN = document.querySelector(".delete");
+  const deleteModalBody = document.querySelector(".modal-body-delete");
+
+  const task = TasksList.find((item) => item.id === Number(id));
+  console.log(task);
+  deleteModalBody.innerHTML = `<span class="text-xl ml-3">${task.taskTitle}<span/>`;
+  deleteBTN.addEventListener("click", () => {
+    const index = TasksList.findIndex((item) => item.id === Number(id));
+    TasksList.splice(index, 1);
+    localStorage.setItem("tasks", JSON.stringify(TasksList));
+    window.location.reload();
+  });
+};
