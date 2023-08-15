@@ -53,6 +53,10 @@ const displayTasks = (filteredTasks) => {
   let inProgressContent = "";
   let completedContent = "";
 
+  let notStartedCount = 0;
+  let inProgressCount = 0;
+  let completedCount = 0;
+
   if (filteredTasks) {
     filteredTasks.forEach((task) => {
       const taskHtml = `
@@ -68,10 +72,13 @@ const displayTasks = (filteredTasks) => {
       `;
 
       if (task.taskStatus === "Not Started") {
+        notStartedCount++;
         notStartedContent += taskHtml;
       } else if (task.taskStatus === "In Progress") {
+        inProgressCount++;
         inProgressContent += taskHtml;
       } else if (task.taskStatus === "Completed") {
+        completedCount++;
         completedContent += taskHtml;
       }
     });
@@ -90,27 +97,40 @@ const displayTasks = (filteredTasks) => {
     `;
 
       if (task.taskStatus === "Not Started") {
+        notStartedCount++;
         notStartedContent += taskHtml;
       } else if (task.taskStatus === "In Progress") {
+        inProgressCount++;
         inProgressContent += taskHtml;
       } else if (task.taskStatus === "Completed") {
+        completedCount++;
         completedContent += taskHtml;
       }
     });
   }
 
+  document.querySelector(
+    ".count-not-started"
+  ).innerHTML = `<p>${notStartedCount}</p>`;
+  document.querySelector(
+    ".count-in-progress"
+  ).innerHTML = `<p>${inProgressCount}</p>`;
+  document.querySelector(
+    ".count-completed"
+  ).innerHTML = `<p>${completedCount}</p>`;
+  console.log(completedCount);
+
   notStartedContainer.innerHTML = notStartedContent;
   inProgressContainer.innerHTML = inProgressContent;
   completedContainer.innerHTML = completedContent;
 
-  x();
+  dragAndDropListener();
 };
 
 btn.addEventListener("click", addNewTask);
 document.addEventListener("DOMContentLoaded", getTasks);
 
 // Show task details
-
 let currentEditedTaskId = null;
 
 const getTask = (id) => {
@@ -172,7 +192,7 @@ const getTask = (id) => {
 
 // Drag and drop feature
 
-const x = () => {
+const dragAndDropListener = () => {
   const todos = document.querySelectorAll(".todo");
   const columns = document.querySelectorAll(".status");
   let draggableTodo = null;
@@ -205,7 +225,6 @@ const x = () => {
 
   const dragDrop = (e) => {
     e.preventDefault();
-    console.log("draggableTodo: ", draggableTodo);
 
     if (draggableTodo instanceof Node) {
       const newStatus = e.currentTarget.dataset.status;
@@ -221,6 +240,7 @@ const x = () => {
       e.currentTarget.style.border = "none";
       const column = e.currentTarget;
       column.style.background = "none";
+      displayTasks();
     }
   };
 
@@ -242,21 +262,32 @@ const x = () => {
 };
 
 // Delete Task
+let currentDeleteTaskId = null;
 
 const deleteTask = (id) => {
-  const deleteBTN = document.querySelector(".delete");
   const deleteModalBody = document.querySelector(".modal-body-delete");
 
   const task = TasksList.find((item) => item.id === Number(id));
   console.log(task);
-  deleteModalBody.innerHTML = `<span class="text-xl ml-3">${task.taskTitle}<span/>`;
-  deleteBTN.addEventListener("click", () => {
-    const index = TasksList.findIndex((item) => item.id === Number(id));
-    TasksList.splice(index, 1);
-    localStorage.setItem("tasks", JSON.stringify(TasksList));
-    getTasks();
-  });
+  deleteModalBody.innerHTML = `<span class="text-xl ml-3">${task.taskTitle}</span>`;
+
+  currentDeleteTaskId = id;
 };
+
+const deleteBTN = document.querySelector(".delete");
+deleteBTN.addEventListener("click", () => {
+  if (currentDeleteTaskId !== null) {
+    const index = TasksList.findIndex(
+      (item) => item.id === Number(currentDeleteTaskId)
+    );
+    if (index !== -1) {
+      TasksList.splice(index, 1);
+      localStorage.setItem("tasks", JSON.stringify(TasksList));
+      getTasks();
+    }
+    currentDeleteTaskId = null;
+  }
+});
 
 // search task
 
