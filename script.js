@@ -255,7 +255,7 @@ const dragAndDropListener = () => {
     column.addEventListener("dragleave", dragLeave);
     column.addEventListener("drop", dragDrop);
   });
-});
+};
 
 // Delete Task
 let currentDeleteTaskId = null;
