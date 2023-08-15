@@ -54,8 +54,38 @@ const displayTasks = () => {
   let inProgressContent = "";
   let completedContent = "";
 
-  TasksList.forEach((task) => {
-    const taskHtml = `
+  let notStartedCount = 0;
+  let inProgressCount = 0;
+  let completedCount = 0;
+
+  if (filteredTasks) {
+    filteredTasks.forEach((task) => {
+      const taskHtml = `
+      <div draggable="true" id="${task.id}" class="todo relative group flex justify-between gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-[#f1f1f196] hover:bg-[#2929290e] shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md duration-200 cursor-grab">
+      <span><p class="text-[1.3rem]">${task.taskTitle}</p></span>
+      <span onclick="getTask(${task.id})" data-bs-toggle="modal" data-bs-target="#details" class="dots-icon hidden group-hover:block absolute right-14 bg-[#54545418] rounded-full py-1 px-2 cursor-pointer hover:bg-slate-200">
+        <i class="bx bx-dots-horizontal-rounded text-2xl"></i>
+      </span>
+        <span onclick="deleteTask(${task.id})" data-bs-toggle="modal" data-bs-target="#ConfirmDelete" class="hidden group-hover:block absolute right-2 bg-[#54545418] rounded-full py-1 px-2 cursor-pointer hover:bg-slate-200">
+          <i class="bx bx-x text-2xl"></i>
+        </span>
+      </div>
+      `;
+
+      if (task.taskStatus === "Not Started") {
+        notStartedCount++;
+        notStartedContent += taskHtml;
+      } else if (task.taskStatus === "In Progress") {
+        inProgressCount++;
+        inProgressContent += taskHtml;
+      } else if (task.taskStatus === "Completed") {
+        completedCount++;
+        completedContent += taskHtml;
+      }
+    });
+  } else {
+    TasksList.forEach((task) => {
+      const taskHtml = `
     <div draggable="true" id="${task.id}" class="todo relative group flex justify-between gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-[#f1f1f196] hover:bg-[#2929290e] shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md duration-200 cursor-grab">
     <span><p class="text-[1.3rem]">${task.taskTitle}</p></span>
     <span onclick="getTask(${task.id})" data-bs-toggle="modal" data-bs-target="#details" class="dots-icon hidden group-hover:block absolute right-14 bg-[#54545418] rounded-full py-1 px-2 cursor-pointer hover:bg-slate-200">
@@ -67,25 +97,41 @@ const displayTasks = () => {
     </div>
     `;
 
-    if (task.taskStatus === "Not Started") {
-      notStartedContent += taskHtml;
-    } else if (task.taskStatus === "In Progress") {
-      inProgressContent += taskHtml;
-    } else if (task.taskStatus === "Completed") {
-      completedContent += taskHtml;
-    }
-  });
+      if (task.taskStatus === "Not Started") {
+        notStartedCount++;
+        notStartedContent += taskHtml;
+      } else if (task.taskStatus === "In Progress") {
+        inProgressCount++;
+        inProgressContent += taskHtml;
+      } else if (task.taskStatus === "Completed") {
+        completedCount++;
+        completedContent += taskHtml;
+      }
+    });
+  }
+
+  document.querySelector(
+    ".count-not-started"
+  ).innerHTML = `<p>${notStartedCount}</p>`;
+  document.querySelector(
+    ".count-in-progress"
+  ).innerHTML = `<p>${inProgressCount}</p>`;
+  document.querySelector(
+    ".count-completed"
+  ).innerHTML = `<p>${completedCount}</p>`;
+  console.log(completedCount);
 
   notStartedContainer.innerHTML = notStartedContent;
   inProgressContainer.innerHTML = inProgressContent;
   completedContainer.innerHTML = completedContent;
+
+  dragAndDropListener();
 };
 
 btn.addEventListener("click", addNewTask);
 document.addEventListener("DOMContentLoaded", getTasks);
 
 // Show task details
-
 let currentEditedTaskId = null;
 
 const getTask = (id) => {
@@ -142,7 +188,7 @@ const getTask = (id) => {
 
 // Drag and drop feature
 
-document.addEventListener("DOMContentLoaded", () => {
+const dragAndDropListener = () => {
   const todos = document.querySelectorAll(".todo");
   const columns = document.querySelectorAll(".status");
   let draggableTodo = null;
@@ -175,7 +221,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const dragDrop = (e) => {
     e.preventDefault();
-    console.log("draggableTodo: ", draggableTodo);
 
     if (draggableTodo instanceof Node) {
       const newStatus = e.currentTarget.dataset.status;
@@ -191,6 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
       e.currentTarget.style.border = "none";
       const column = e.currentTarget;
       column.style.background = "none";
+      displayTasks();
     }
   };
 
@@ -212,18 +258,47 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Delete Task
+let currentDeleteTaskId = null;
 
 const deleteTask = (id) => {
-  const deleteBTN = document.querySelector(".delete");
   const deleteModalBody = document.querySelector(".modal-body-delete");
 
   const task = TasksList.find((item) => item.id === Number(id));
   console.log(task);
-  deleteModalBody.innerHTML = `<span class="text-xl ml-3">${task.taskTitle}<span/>`;
-  deleteBTN.addEventListener("click", () => {
-    const index = TasksList.findIndex((item) => item.id === Number(id));
-    TasksList.splice(index, 1);
-    localStorage.setItem("tasks", JSON.stringify(TasksList));
-    window.location.reload();
-  });
+  deleteModalBody.innerHTML = `<span class="text-xl ml-3">${task.taskTitle}</span>`;
+
+  currentDeleteTaskId = id;
 };
+
+const deleteBTN = document.querySelector(".delete");
+deleteBTN.addEventListener("click", () => {
+  if (currentDeleteTaskId !== null) {
+    const index = TasksList.findIndex(
+      (item) => item.id === Number(currentDeleteTaskId)
+    );
+    if (index !== -1) {
+      TasksList.splice(index, 1);
+      localStorage.setItem("tasks", JSON.stringify(TasksList));
+      getTasks();
+    }
+    currentDeleteTaskId = null;
+  }
+});
+
+// search task
+
+const searchTask = () => {
+  const searchInput = document.querySelector(".search-input");
+  console.log(searchInput.value.trim());
+
+  const filteredTasks = TasksList.filter((task) =>
+    task.taskTitle
+      .toLowerCase()
+      .includes(searchInput.value.trim().toLowerCase())
+  );
+  console.log(filteredTasks);
+  displayTasks(filteredTasks);
+};
+
+const searchInput = document.querySelector(".search-input");
+searchInput.addEventListener("input", searchTask);
