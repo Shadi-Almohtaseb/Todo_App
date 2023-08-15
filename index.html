@@ -189,20 +189,12 @@
               <label for="floatingTextarea">Message</label>
             </div>
           </div>
-          <div class="modal-footer flex items-center justify-between">
+          <div class="modal-footer modal-btn flex items-center justify-between">
             <button
               class="save btn btn-primary text-lg py-2 px-5"
               data-bs-dismiss="modal"
             >
               Save
-            </button>
-            <button
-              class="bg-red-500 text-white text-lg py-2 px-5 rounded-lg hover:bg-red-600"
-              data-bs-dismiss="modal"
-              data-bs-toggle="modal"
-              data-bs-target="#ConfirmDelete"
-            >
-              Delete
             </button>
           </div>
         </div>
@@ -230,10 +222,12 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body-delete"></div>
+          <div
+            class="modal-body-delete h-12 flex items-center justify-start"
+          ></div>
           <div class="modal-footer flex items-center justify-between">
             <button
-              class="bg-red-500 text-white text-lg py-2 px-5 rounded-lg hover:bg-red-600"
+              class="delete bg-red-500 text-white text-lg py-2 px-5 rounded-lg hover:bg-red-600"
               data-bs-dismiss="modal"
             >
               Delete
