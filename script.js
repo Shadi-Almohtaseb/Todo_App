@@ -211,7 +211,6 @@ addBtns.forEach((addBtn) => {
 });
 
 // Drag and drop feature
-
 const dragAndDropListener = () => {
   const todos = document.querySelectorAll(".todo");
   const columns = document.querySelectorAll(".status");
@@ -219,7 +218,6 @@ const dragAndDropListener = () => {
 
   const dragStart = (e) => {
     draggableTodo = e.target;
-    console.log("entered");
   };
 
   const dragEnd = () => {
@@ -288,7 +286,6 @@ const deleteTask = (id) => {
   const deleteModalBody = document.querySelector(".modal-body-delete");
 
   const task = TasksList.find((item) => item.id === Number(id));
-  console.log(task);
   deleteModalBody.innerHTML = `<span class="text-xl ml-3">${task.taskTitle}</span>`;
 
   currentDeleteTaskId = id;
@@ -310,17 +307,14 @@ deleteBTN.addEventListener("click", () => {
 });
 
 // search task
-
 const searchTask = () => {
   const searchInput = document.querySelector(".search-input");
-  console.log(searchInput.value.trim());
 
   const filteredTasks = TasksList.filter((task) =>
     task.taskTitle
       .toLowerCase()
       .includes(searchInput.value.trim().toLowerCase())
   );
-  console.log(filteredTasks);
   displayTasks(filteredTasks);
 };
 
