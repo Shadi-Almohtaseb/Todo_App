@@ -3,19 +3,22 @@ let btn = document.querySelector(".add");
 
 const addNewTask = () => {
   let taskTitle = document.querySelector(".title");
+  let taskAuthor = document.querySelector(".author");
   let taskMessage = document.querySelector(".message");
   let taskStatus = document.querySelector(".status");
 
   const titleValue = taskTitle.value;
+  const authorValue = taskAuthor.value;
   const messageValue = taskMessage.value;
   const statusValue = taskStatus.value;
 
-  if (titleValue && messageValue && statusValue) {
+  if (titleValue && messageValue && statusValue && authorValue) {
     const task = {
       id: Date.now(),
       taskTitle: titleValue,
       taskMessage: messageValue,
       taskStatus: statusValue,
+      taskAuthor: authorValue,
     };
 
     TasksList.push(task);
@@ -24,6 +27,7 @@ const addNewTask = () => {
     taskTitle.value = "";
     taskMessage.value = "";
     taskStatus.value = "";
+    taskAuthor.value = "";
   } else {
     alert("some information is missing!");
   }
@@ -118,7 +122,6 @@ const displayTasks = (filteredTasks) => {
   document.querySelector(
     ".count-completed"
   ).innerHTML = `<p>${completedCount}</p>`;
-  console.log(completedCount);
 
   notStartedContainer.innerHTML = notStartedContent;
   inProgressContainer.innerHTML = inProgressContent;
@@ -154,6 +157,7 @@ const getTask = (id) => {
   document.querySelector(".modal-btn").innerHTML = deleteBTN;
 
   const titleInput = document.querySelector(".title-input");
+  const authorInput = document.querySelector(".author-input");
   const statusSelect = document.querySelector(".status-input");
   const messageTextarea = document.querySelector(".message-input");
   const saveButton = document.querySelector(".save");
@@ -161,6 +165,7 @@ const getTask = (id) => {
 
   if (task) {
     titleInput.value = task.taskTitle;
+    authorInput.value = task.taskAuthor;
     statusSelect.value = task.taskStatus;
     messageTextarea.value = task.taskMessage;
     currentEditedTaskId = id;
@@ -171,6 +176,7 @@ const getTask = (id) => {
       const updatedTask = {
         id: currentEditedTaskId,
         taskTitle: titleInput.value,
+        taskAuthor: authorInput.value,
         taskStatus: statusSelect.value,
         taskMessage: messageTextarea.value,
       };
@@ -189,6 +195,20 @@ const getTask = (id) => {
     }
   });
 };
+
+const addBtns = document.querySelectorAll(".add-new");
+
+addBtns.forEach((addBtn) => {
+  addBtn.addEventListener("click", () => {
+    const notStartedBtn = addBtn.classList.contains("not-started");
+    const select = document.querySelector(".select");
+
+    select.innerHTML = `
+      <option ${notStartedBtn ? "selected" : ""}>Not Started</option>
+      <option ${!notStartedBtn ? "selected" : ""}>In Progress</option>
+    `;
+  });
+});
 
 // Drag and drop feature
 
