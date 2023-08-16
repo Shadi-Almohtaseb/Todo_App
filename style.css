@@ -93,3 +93,13 @@ input:not(:placeholder-shown) ~ .reset {
   width: 17px;
   margin-top: 3px;
 }
+
+/* Task item */
+
+/* Add this CSS to your stylesheet */
+.task-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative; /* Needed for the tooltip */
+}

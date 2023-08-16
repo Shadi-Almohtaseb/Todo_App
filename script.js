@@ -63,16 +63,23 @@ const displayTasks = (filteredTasks) => {
 
   if (filteredTasks) {
     filteredTasks.forEach((task) => {
+      const maxTitleLength = 30;
+
+      const clippedTitle =
+        task.taskTitle.length > maxTitleLength
+          ? task.taskTitle.slice(0, maxTitleLength) + "..."
+          : task.taskTitle;
+
       const taskHtml = `
-      <div draggable="true" id="${task.id}" class="todo relative group flex justify-between gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-[#f1f1f196] hover:bg-[#2929290e] shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md duration-200 cursor-grab">
-      <span><p class="text-[1.3rem]">${task.taskTitle}</p></span>
-      <span onclick="getTask(${task.id})" data-bs-toggle="modal" data-bs-target="#details" class="dots-icon hidden group-hover:block absolute right-14 bg-[#54545418] rounded-full py-1 px-2 cursor-pointer hover:bg-slate-200">
-        <i class="bx bx-dots-horizontal-rounded text-2xl"></i>
-      </span>
-        <span onclick="deleteTask(${task.id})" data-bs-toggle="modal" data-bs-target="#ConfirmDelete" class="hidden group-hover:block absolute right-2 bg-[#54545418] rounded-full py-1 px-2 cursor-pointer hover:bg-slate-200">
-          <i class="bx bx-x text-2xl"></i>
-        </span>
-      </div>
+        <div draggable="true" id="${task.id}" class="todo relative group flex justify-between gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-[#f1f1f196] hover:bg-[#2929290e] shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md duration-200 cursor-grab">
+          <span><p class="text-[1.3rem] task-title" data-full-title="${task.taskTitle}">${clippedTitle}</p></span>
+          <span onclick="getTask(${task.id})" data-bs-toggle="modal" data-bs-target="#details" class="dots-icon hidden group-hover:block absolute right-14 bg-[#54545418] rounded-full py-1 px-2 cursor-pointer hover:bg-slate-200">
+            <i class="bx bx-dots-horizontal-rounded text-2xl"></i>
+          </span>
+          <span onclick="deleteTask(${task.id})" data-bs-toggle="modal" data-bs-target="#ConfirmDelete" class="hidden group-hover:block absolute right-2 bg-[#54545418] rounded-full py-1 px-2 cursor-pointer hover:bg-slate-200">
+            <i class="bx bx-x text-2xl"></i>
+          </span>
+        </div>
       `;
 
       if (task.taskStatus === "Not Started") {
@@ -88,17 +95,24 @@ const displayTasks = (filteredTasks) => {
     });
   } else {
     TasksList.forEach((task) => {
+      const maxTitleLength = 30;
+
+      const clippedTitle =
+        task.taskTitle.length > maxTitleLength
+          ? task.taskTitle.slice(0, maxTitleLength) + "..."
+          : task.taskTitle;
+
       const taskHtml = `
-    <div draggable="true" id="${task.id}" class="todo relative group flex justify-between gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-[#f1f1f196] hover:bg-[#2929290e] shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md duration-200 cursor-grab">
-    <span><p class="text-[1.3rem]">${task.taskTitle}</p></span>
-    <span onclick="getTask(${task.id})" data-bs-toggle="modal" data-bs-target="#details" class="dots-icon hidden group-hover:block absolute right-14 bg-[#54545418] rounded-full py-1 px-2 cursor-pointer hover:bg-slate-200">
-    <i class="bx bx-dots-horizontal-rounded text-2xl"></i>
-    </span>
-    <span onclick="deleteTask(${task.id})" data-bs-toggle="modal" data-bs-target="#ConfirmDelete" class="hidden group-hover:block absolute right-2 bg-[#54545418] rounded-full py-1 px-2 cursor-pointer hover:bg-slate-200">
-    <i class="bx bx-x text-2xl"></i>
-    </span>
-    </div>
-    `;
+        <div draggable="true" id="${task.id}" class="todo relative group flex justify-between gap-4 mt-4 items-center py-[13px] border-[1px] border-gray-300 px-3 bg-[#f1f1f196] hover:bg-[#2929290e] shadow-[8px_8px_23px_-7px_rgba(112,112,112,0.75)] rounded-md duration-200 cursor-grab">
+          <span><p class="text-[1.3rem] task-title" data-full-title="${task.taskTitle}">${clippedTitle}</p></span>
+          <span onclick="getTask(${task.id})" data-bs-toggle="modal" data-bs-target="#details" class="dots-icon hidden group-hover:block absolute right-14 bg-[#54545418] rounded-full py-1 px-2 cursor-pointer hover:bg-slate-200">
+            <i class="bx bx-dots-horizontal-rounded text-2xl"></i>
+          </span>
+          <span onclick="deleteTask(${task.id})" data-bs-toggle="modal" data-bs-target="#ConfirmDelete" class="hidden group-hover:block absolute right-2 bg-[#54545418] rounded-full py-1 px-2 cursor-pointer hover:bg-slate-200">
+            <i class="bx bx-x text-2xl"></i>
+          </span>
+        </div>
+      `;
 
       if (task.taskStatus === "Not Started") {
         notStartedCount++;
